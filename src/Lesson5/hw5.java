@@ -24,7 +24,16 @@ public class hw5 {
             )));
         }
         executorService.shutdown();
+        try {
+            startlatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if (!race.start){
         PrintMessage("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка началась!!!");
+        race.start = true;
+        }
+
         try {
             stoplatch.await();
         } catch (InterruptedException e) {
@@ -32,6 +41,8 @@ public class hw5 {
         }
 
         PrintMessage("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
+
+
     }
     public static void PrintMessage(String str){
         System.out.println( new SimpleDateFormat("dd.MM.yyyy HH:mm:ss:ms").format(Calendar.getInstance().getTime())+" "+str);

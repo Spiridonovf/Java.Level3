@@ -46,13 +46,13 @@ public class Car implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        while (!race.start) {;}
 
         for (int i = 0; i < race.getStages().size(); i++) {
             race.getStages().get(i).go(this);
         }
-        stopLatch.countDown();
         PrintMessage(this.name + " закончил гонку");
+        stopLatch.countDown();
     }
     public void PrintMessage(String str){
         System.out.println( new SimpleDateFormat("dd.MM.yyyy HH:mm:ss:ms").format(Calendar.getInstance().getTime())+" "+str);
